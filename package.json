@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/NCTechDev/ZezinhoFilmes/issues"
   },
-  "homepage": "https://github.com/NCTechDev/ZezinhoFilmes#readme"
+  "homepage": "https://github.com/NCTechDev/ZezinhoFilmes#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
 }
