@@ -1,0 +1,19 @@
+{
+  "name": "zezinhofilmes",
+  "version": "1.0.0",
+  "description": "Catálogo de Animes, Desenhos, Filmes e Séries.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NCTechDev/ZezinhoFilmes.git"
+  },
+  "author": "Gustavo Martins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NCTechDev/ZezinhoFilmes/issues"
+  },
+  "homepage": "https://github.com/NCTechDev/ZezinhoFilmes#readme"
+}
