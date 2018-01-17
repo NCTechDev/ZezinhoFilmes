@@ -1,7 +1,5 @@
 'use strict'
 
-const path = __dirname + '/public'
-
 module.exports = function (app) {
 
     // Rotas
@@ -11,7 +9,7 @@ module.exports = function (app) {
 
     // Home
     app.get('/', function (req, res) {
-        res.sendFile(path + 'index.html')
+        res.sendFile('index.html')
     })
 
 }
