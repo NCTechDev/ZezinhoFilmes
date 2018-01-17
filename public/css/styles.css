@@ -4,6 +4,17 @@ body {
     height: 100%;
 }
 
+div.jumbotron {
+    margin-bottom: 0px;
+}
+
+div.categoria {
+    margin-top: 10px;
+}
+button.item-categoria {
+    margin: 2px 0;
+}
+
 div.card {
     margin: 10px 0;
 }
