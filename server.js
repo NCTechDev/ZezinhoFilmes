@@ -3,7 +3,7 @@
 const express = require('express'),
     app = express()
 
-app.use(express.static(__dirname + "/public"))
+app.use(express.static("public"))
 
 const port = 8080,
     hostname = "localhost"
