@@ -18,6 +18,12 @@ const indexController = {
             else if (status == httpStatus.UNAUTHORIZED) callback(null, false, message)
             else callback(error)
         })
+    },
+    // Update
+    update: function (req, res, idAdm) {
+        indexService.update(req.body, idAdm, function (error, status, message, username) {
+            res.status(status).json({ message: message, username: username })
+        })
     }
 
 }

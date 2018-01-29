@@ -8,7 +8,6 @@ module.exports = function (passport) {
     passport.serializeUser(function (user, done) {
         let sessionUser = {
             _id: user._id,
-            username: user.username,
             access_level: user.access_level
         }
         done(null, sessionUser)

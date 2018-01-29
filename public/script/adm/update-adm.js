@@ -1,6 +1,4 @@
 jQuery(document).ready(function () {
-    // Logged
-    showNameLogged()
     $('#btnSend').click(function (event) {
         event.preventDefault()
         let lProgress = Ladda.create(this)
@@ -9,6 +7,10 @@ jQuery(document).ready(function () {
 })
 
 function validateDados(lProgress) {
+    $("#inpUsername").val().length < 10 ?
+        $("#inpUsername").removeClass("is-valid").addClass("is-invalid") :
+        $("#inpUsername").removeClass("is-invalid").addClass("is-valid")
+
     $("#inpUser").val().length < 8 ?
         $("#inpUser").removeClass("is-valid").addClass("is-invalid") :
         $("#inpUser").removeClass("is-invalid").addClass("is-valid")
@@ -25,7 +27,7 @@ function validateDados(lProgress) {
 
 function sendData(lProgress) {
     $.ajax({
-        url: "/login",
+        url: "/editar/administrador",
         type: "post",
         dataType: "json",
         async: true,
@@ -37,25 +39,13 @@ function sendData(lProgress) {
             lProgress.stop()
         }
     }).done(function (callback) {
-        let expiresDate = new Date()
-        expiresDate.setTime(expiresDate.getTime() + 3600000)
-        $.cookie('zezinho-username', callback.username, { expires: expiresDate })
-        $.cookie('zezinho-expires', expiresDate, { expires: expiresDate })
-        showToastr("success", callback.info)
-        showNameLogged()
+        let expiresDate = new Date($.cookie('zezinho-expires'))
+        $.cookie('zezinho-username', callback.username, { expires: expiresDate, path: '/' })
+        showToastr("success", callback.message)
+        $('.form-update').trigger('reset')
     }).fail(function (callback) {
         callbackMsg = JSON.parse(callback.responseText)
-        showToastr("error", callbackMsg.info)
+        showToastr("error", callbackMsg.message)
     })
 }
 
-function showNameLogged() {
-    if ($.cookie('zezinho-username')) {
-        $("#usernameLogged").html("Bem Vindo " + $.cookie('zezinho-username'))
-        $("#yesLogged").show()
-        $("#noLogged").hide()
-    } else {
-        $("#usernameLogged").html("Acesse sua conta")
-        $("#yesLogged").hide()
-    }
-}

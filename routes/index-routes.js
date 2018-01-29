@@ -1,7 +1,9 @@
 'use strict'
 
 const indexController = require('../controller/index-controller'),
-    httpStatus = require('http-status')
+    httpStatus = require('http-status'),
+    isLoggedIn = require('../authentication/isLoggedIn'),
+    isAuthorized = require('../authentication/isAuthorized')
 
 module.exports = function (app, path, passport) {
 
@@ -45,12 +47,25 @@ module.exports = function (app, path, passport) {
         if (typeof req.session.passport === 'undefined')
             res.redirect('/logout')
         else if (req.session.passport.user.access_level === 0)
-            res.redirect('/administrador')
+            res.redirect('/index/administrador')
         else if (req.session.passport.user.access_level === 1)
-            res.redirect('/usuario')
+            res.redirect('/index/usuario')
         else
             res.redirect('/logout')
 
+    })
+
+    // Home administrador
+    app.get('/index/administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/view/adm/index-adm.html'))
+    })
+
+    // Editar administrador
+    app.get('/editar/administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/view/adm/update-adm.html'))
+    })
+    app.post('/editar/administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
+        indexController.update(req, res, req.session.passport.user._id)
     })
 
     // Logout
@@ -59,6 +74,7 @@ module.exports = function (app, path, passport) {
             if (error) { return next(error) }
             res.clearCookie('zezinho-filmes')
             res.clearCookie('zezinho-username')
+            res.clearCookie('zezinho-expires')
             req.logout()
             res.redirect('/')
         })

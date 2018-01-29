@@ -36,6 +36,33 @@ const indexService = {
                 callback(null, httpStatus.OK, 'Login realizado com sucesso.', doc)
             }
         })
+    },
+    // Register
+    update: function (bodyData, idAdm, callback) {
+        let hashedPassword = bcrypt.hashSync(bodyData.inpPassword, 10)
+
+        register.findById(idAdm, 'username user password', function (error, foundDoc) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                if (foundDoc) {
+                    foundDoc.username = bodyData.inpUsername
+                    foundDoc.user = bodyData.inpUser
+                    foundDoc.password = hashedPassword
+                    foundDoc.save(function (error, doc) {
+                        if (error) {
+                            if (error.code === 11000)
+                                callback(error, httpStatus.UNAUTHORIZED, 'Usuário já está em uso.')
+                            else
+                                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        } else {
+                            callback(null, httpStatus.OK, 'Atualizado com sucesso.', doc.username)
+                        }
+                    })
+                } else
+                    callback(new Error(), httpStatus.UNAUTHORIZED, 'Usuário inválido.')
+            }
+        })
     }
 
 }

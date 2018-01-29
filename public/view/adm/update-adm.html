@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="../../img-site/favicon.ico">
+    <title>Zezinho Filmes</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../../css/pace-theme-center-circle.css">
+    <link rel="stylesheet" href="../../css/toastr.min.css">
+    <link rel="stylesheet" href="../../css/ladda-themeless.min.css">
+    <style>
+        #conteudo {
+            opacity: 0;
+            transition: ease-out 1s;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Begin Conteúdo -->
+    <div id="conteudo">
+        <div class="container">
+            <!-- Begin Header -->
+            <header class="py-3">
+                <div class="row d-flex flex-nowrap">
+                    <div class="col-sm-8">
+                        <h1 class="text-dark">Zezinho Filmes</h1>
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-end align-items-center">
+                        <a class="btn btn-sm btn-outline-dark mr-2" href="/editar/administrador">EDITAR CONTA</a>
+                        <a class="btn btn-sm btn-outline-dark" href="/logout">SAIR</a>
+                    </div>
+                </div>
+            </header>
+            <!-- End Header -->
+            <!-- Begin Form -->
+            <div class="col-md-6 offset-md-3">
+                <form class="form-update" method="POST" action="">
+                    <input type="text" class="form-control m-1" name="inpUsername" id="inpUsername" placeholder="Nome do usuário" autocomplete="off">
+                    <div class="invalid-feedback">O nome do usuário deve conter no mínimo 10 caracteres.</div>
+                    <input type="text" class="form-control m-1" name="inpUser" id="inpUser" placeholder="Usuário" autocomplete="off">
+                    <div class="invalid-feedback">O usuário deve conter no mínimo 8 caracteres.</div>
+                    <input type="password" class="form-control m-1" name="inpPassword" id="inpPassword" placeholder="Senha" autocomplete="off">
+                    <div class="invalid-feedback">A senha deve conter no mínimo 6 caracteres.</div>
+                    <button type="submit" class="btn btn-dark btn-block m-1 ladda-button" id="btnSend" data-style="zoom-in">
+                        <span class="ladda-label">Atualizar</span>
+                    </button>
+                </form>
+            </div>
+            <!-- End Form -->
+        </div>
+        <!-- Begin Footer -->
+        <footer>
+            <a href="/" target="blank">
+                <img src="../../img-site/NC-Tech.png" class="img-fluid mx-auto d-block" data-toggle="tooltip" data-placement="top" title="Projetado e contruído por"
+                    alt="NC Tech">
+            </a>
+        </footer>
+        <!-- End Footer -->
+    </div>
+    <!-- End Conteúdo -->
+    <!-- Begin Script -->
+    <script type="text/javascript" src="../../script/loader.js"></script>
+    <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../../js/popper.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../js/pace.min.js"></script>
+    <script type="text/javascript" src="../../js/toastr.min.js"></script>
+    <script type="text/javascript" src="../../js/spin.min.js"></script>
+    <script type="text/javascript" src="../../js/ladda.min.js"></script>
+    <script type="text/javascript" src="../../script/toastr-options.js"></script>
+    <script type="text/javascript" src="../../script/adm/update-adm.js"></script>
+    <script>
+        $(function () { $('[data-toggle="tooltip"]').tooltip() })
+    </script>
+    <!-- End Script -->
+</body>
+
+</html>
