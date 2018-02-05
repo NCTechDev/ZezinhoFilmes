@@ -47,24 +47,24 @@ module.exports = function (app, path, passport) {
         if (typeof req.session.passport === 'undefined')
             res.redirect('/logout')
         else if (req.session.passport.user.access_level === 0)
-            res.redirect('/index/administrador')
+            res.redirect('/index-administrador')
         else if (req.session.passport.user.access_level === 1)
-            res.redirect('/index/usuario')
+            res.redirect('/index-usuario')
         else
             res.redirect('/logout')
 
     })
 
     // Home administrador
-    app.get('/index/administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
+    app.get('/index-administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
         res.sendFile(path.join(__dirname + '/../public/view/adm/index-adm.html'))
     })
 
     // Editar administrador
-    app.get('/editar/administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
+    app.get('/editar-administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
         res.sendFile(path.join(__dirname + '/../public/view/adm/update-adm.html'))
     })
-    app.post('/editar/administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
+    app.post('/editar-administrador', isLoggedIn, isAuthorized([0]), function (req, res) {
         indexController.update(req, res, req.session.passport.user._id)
     })
 

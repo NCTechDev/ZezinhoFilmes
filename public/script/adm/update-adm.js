@@ -27,7 +27,7 @@ function validateDados(lProgress) {
 
 function sendData(lProgress) {
     $.ajax({
-        url: "/editar/administrador",
+        url: "/editar-administrador",
         type: "post",
         dataType: "json",
         async: true,
