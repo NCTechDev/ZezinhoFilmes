@@ -27,6 +27,30 @@ const indexController = {
         indexService.deleteType(req.body, function (error, status, message) {
             res.status(status).json({ message: message })
         })
+    },
+    // Cadastrar Categoria
+    registerCategory: function (req, res) {
+        indexService.registerCategory(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    // Listar Categoria
+    listCategory: function (req, res) {
+        indexService.listCategory(function (error, status, message, categories) {
+            res.status(status).json({ message: message, category: categories })
+        })
+    },
+    // Editar Categoria
+    updateCategory: function (req, res) {
+        indexService.updateCategory(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    // Excluir Categoria
+    deleteCategory: function (req, res) {
+        indexService.deleteCategory(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 
 }
