@@ -58,23 +58,29 @@
                 </div>
             </header>
             <!-- End Header -->
-            <!-- Begin Form -->
-            <div class="col-md-6 offset-md-3">
-                <form class="form-update" method="POST" action="">
-                    <input type="text" class="form-control m-1" name="inpUsername" id="inpUsername" placeholder="Nome do usuário" autocomplete="off">
-                    <div class="invalid-feedback">O nome do usuário deve conter no mínimo 10 caracteres.</div>
-                    <input type="text" class="form-control m-1" name="inpUser" id="inpUser" placeholder="Usuário" autocomplete="off">
-                    <div class="invalid-feedback">O usuário deve conter no mínimo 8 caracteres.</div>
-                    <input type="password" class="form-control m-1" name="inpPassword" id="inpPassword" placeholder="Senha" autocomplete="off">
-                    <div class="invalid-feedback">A senha deve conter no mínimo 6 caracteres.</div>
-                    <button type="submit" class="btn btn-dark btn-block m-1 ladda-button" id="btnSend" data-style="zoom-in">
-                        <span class="ladda-label">Atualizar</span>
-                    </button>
-                    <a href="/index-administrador" class="btn btn-secondary btn-block m-1">Cancelar</a>
-                </form>
-            </div>
-            <!-- End Form -->
         </div>
+        <!-- Begin Register -->
+        <div class="container">
+            <div class="row">
+                <div class="offset-md-2 col-md-8">
+                    <form class="formSend" method="POST" action="">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Exemplos: Filmes e séries</span>
+                            </div>
+                            <input type="text" class="form-control" name="inpTipo" id="inpTipo" autofocus>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-dark ladda-button" id="btnSend" data-style="zoom-in">
+                                    <span class="ladda-label">Cadastrar</span>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">Campo vázio.</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End Register -->
         <!-- Begin Footer -->
         <footer>
             <a href="/" target="blank">
@@ -88,7 +94,6 @@
     <!-- Begin Script -->
     <script type="text/javascript" src="../../script/loader.js"></script>
     <script type="text/javascript" src="../../js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../../js/popper.min.js"></script>
     <script type="text/javascript" src="../../bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../../js/pace.min.js"></script>
@@ -96,7 +101,7 @@
     <script type="text/javascript" src="../../js/spin.min.js"></script>
     <script type="text/javascript" src="../../js/ladda.min.js"></script>
     <script type="text/javascript" src="../../script/toastr-options.js"></script>
-    <script type="text/javascript" src="../../script/adm/update-adm.js"></script>
+    <script type="text/javascript" src="../../script/movies/register-type.js"></script>
     <script>
         $(function () { $('[data-toggle="tooltip"]').tooltip() })
     </script>
