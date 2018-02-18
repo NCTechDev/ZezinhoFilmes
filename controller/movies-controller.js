@@ -51,6 +51,35 @@ const indexController = {
         indexService.deleteCategory(req.body, function (error, status, message) {
             res.status(status).json({ message: message })
         })
+    },
+    // Cadastrar Catálogo
+    registerCatalog: function (req, res) {
+        indexService.registerCatalog(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    // Listar Catálogo
+    listCatalog: function (req, res) {
+        indexService.listCatalog(function (error, status, message, catalogs) {
+            res.status(status).json({ message: message, catalog: catalogs })
+        })
+    },
+    // Editar Catálogo
+    returnACatalog: function (req, res, idParam) {
+        indexService.returnACatalog(idParam, function (error, status, message, catalog) {
+            res.status(status).json({ message: message, catalog: catalog })
+        })
+    },
+    updateCatalog: function (req, res) {
+        indexService.updateCatalog(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
+    },
+    // Excluir Catálogo
+    deleteCatalog: function (req, res) {
+        indexService.deleteCatalog(req.body, function (error, status, message) {
+            res.status(status).json({ message: message })
+        })
     }
 
 }

@@ -50,5 +50,33 @@ module.exports = function (app, path, passport) {
     app.post('/excluir-categorias', isLoggedIn, isAuthorized([0]), function (req, res) {
         moviesController.deleteCategory(req, res)
     })
+    // Cadastrar Catálogo
+    app.get('/cadastrar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/view/movies/register-catalog.html'))
+    })
+    app.post('/cadastrar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
+        moviesController.registerCatalog(req, res)
+    })
+    // Listar Catálogo
+    app.get('/listar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/view/movies/list-catalog.html'))
+    })
+    app.get('/retornar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
+        moviesController.listCatalog(req, res)
+    })
+    // Editar Catálogo
+    app.get('/editar-catalogo/:id?', isLoggedIn, isAuthorized([0]), function (req, res) {
+        res.sendFile(path.join(__dirname + '/../public/view/movies/update-catalog.html'))
+    })
+    app.get('/retornar-editar-catalogo/:id?', isLoggedIn, isAuthorized([0]), function (req, res) {
+        moviesController.returnACatalog(req, res, req.query.id)
+    })
+    app.post('/editar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
+        moviesController.updateCatalog(req, res)
+    })
+    // Excluir Catálogo
+    app.post('/excluir-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
+        moviesController.deleteCatalog(req, res)
+    })
 
 }

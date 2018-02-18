@@ -18,6 +18,10 @@
             opacity: 0;
             transition: ease-out 1s;
         }
+
+        textarea {
+            resize: none;
+        }
     </style>
 </head>
 
@@ -62,19 +66,54 @@
         <!-- Begin Register -->
         <div class="container">
             <div class="row">
-                <div class="offset-md-2 col-md-8">
+                <div class="col-md-12">
                     <form class="formSend" method="POST" action="">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Exemplos: Comédia e terror</span>
+                        <input type="hidden" name="inpOpcao" id="inpOpcao" value="atualizar">
+                        <input type="hidden" name="inpId" id="inpId" value="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control mt-1" name="inpCreatedAt" id="inpCreatedAt" disabled>
                             </div>
-                            <input type="text" class="form-control" name="inpCategoria" id="inpCategoria" autofocus>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-dark ladda-button" id="btnSend" data-style="zoom-in">
-                                    <span class="ladda-label">Cadastrar</span>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control mt-1" name="inpUpdatedAt" id="inpUpdatedAt" disabled>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control mt-1" name="inpTitulo" id="inpTitulo" placeholder="Título">
+                                <div class="invalid-feedback">Campo vazio.</div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="number" class="form-control mt-1" min="0" name="inpAno" id="inpAno" placeholder="Ano de lançamento">
+                                <div class="invalid-feedback">Campo vazio.</div>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="custom-select mt-1" name="selTipo" id="selTipo">
+                                    <option value="">Tipos</option>
+                                </select>
+                                <div class="invalid-feedback">Campo vazio.</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="containerCategoria" class="m-2 text-center"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea class="form-control" name="textSinopse" id="textSinopse" rows="5" placeholder="Sinopse"></textarea>
+                                <div class="invalid-feedback">Campo vazio.</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-dark btn-block mt-1 ladda-button" id="btnSend" data-style="zoom-in">
+                                    <span class="ladda-label">Atualizar</span>
                                 </button>
                             </div>
-                            <div class="invalid-feedback">Campo vázio.</div>
+                            <div class="col-md-6">
+                                <a href="/listar-catalogo" class="btn btn-secondary btn-block mt-1">Voltar</a>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -100,8 +139,12 @@
     <script type="text/javascript" src="../../js/toastr.min.js"></script>
     <script type="text/javascript" src="../../js/spin.min.js"></script>
     <script type="text/javascript" src="../../js/ladda.min.js"></script>
+    <script type="text/javascript" src="../../js/moment.js"></script>
+    <script type="text/javascript" src="../../js/moment-with-locales.js"></script>
     <script type="text/javascript" src="../../script/toastr-options.js"></script>
-    <script type="text/javascript" src="../../script/movies/register-category.js"></script>
+    <script type="text/javascript" src="../../script/movies/register-update-catalog.js"></script>
+    <script type="text/javascript" src="../../script/movies/return-type-category.js"></script>
+    <script type="text/javascript" src="../../script/movies/returnData-catalog.js"></script>
     <script>
         $(function () { $('[data-toggle="tooltip"]').tooltip() })
     </script>

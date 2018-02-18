@@ -59,28 +59,25 @@
             </header>
             <!-- End Header -->
         </div>
-        <!-- Begin Register -->
+        <!-- Begin List -->
         <div class="container">
             <div class="row">
-                <div class="offset-md-2 col-md-8">
-                    <form class="formSend" method="POST" action="">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Exemplos: Comédia e terror</span>
-                            </div>
-                            <input type="text" class="form-control" name="inpCategoria" id="inpCategoria" autofocus>
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-dark ladda-button" id="btnSend" data-style="zoom-in">
-                                    <span class="ladda-label">Cadastrar</span>
-                                </button>
-                            </div>
-                            <div class="invalid-feedback">Campo vázio.</div>
-                        </div>
-                    </form>
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Título</th>
+                                <th>Data de criação</th>
+                                <th>Data de atualização</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbCatalogos"></tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <!-- End Register -->
+        <!-- End List -->
         <!-- Begin Footer -->
         <footer>
             <a href="/" target="blank">
@@ -100,10 +97,14 @@
     <script type="text/javascript" src="../../js/toastr.min.js"></script>
     <script type="text/javascript" src="../../js/spin.min.js"></script>
     <script type="text/javascript" src="../../js/ladda.min.js"></script>
+    <script type="text/javascript" src="../../js/bootbox.min.js"></script>
+    <script type="text/javascript" src="../../js/moment.js"></script>
+    <script type="text/javascript" src="../../js/moment-with-locales.js"></script>
     <script type="text/javascript" src="../../script/toastr-options.js"></script>
-    <script type="text/javascript" src="../../script/movies/register-category.js"></script>
+    <script type="text/javascript" src="../../script/movies/list-catalog.js"></script>
     <script>
         $(function () { $('[data-toggle="tooltip"]').tooltip() })
+        moment.locale('pt-BR')
     </script>
     <!-- End Script -->
 </body>

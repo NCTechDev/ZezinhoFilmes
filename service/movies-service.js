@@ -2,6 +2,7 @@
 
 const type = require('../models/type-schema'),
     category = require('../models/category-schema'),
+    catalog = require('../models/catalog-schema'),
     httpStatus = require('http-status')
 
 const moviesService = {
@@ -122,6 +123,77 @@ const moviesService = {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
             else
                 callback(null, httpStatus.OK, 'Categoria excluída com sucesso.')
+        })
+    },
+    // Cadastrar Catálogo
+    registerCatalog: function (bodyData, callback) {
+        let data = new catalog({
+            title: bodyData.inpTitulo,
+            year: bodyData.inpAno,
+            type: bodyData.selTipo,
+            category: bodyData.inpCategoria,
+            sinopse: bodyData.textSinopse
+        })
+        data.save(function (error) {
+            if (error)
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            else
+                callback(null, httpStatus.CREATED, 'Cadastro realizado com sucesso.')
+
+        })
+    },
+    // Listar Catálogo
+    listCatalog: function (callback) {
+        catalog.find({}, '_id title createdAt updatedAt', function (error, doc) {
+            if (error)
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            else if (doc == null || doc.length == 0)
+                callback(new Error(), httpStatus.OK, 'Nenhum catálogo encontrado.')
+            else
+                callback(null, httpStatus.OK, 'Lista de catálogo retornada com sucesso.', doc)
+        })
+    },
+    // Editar Catálogo
+    returnACatalog: function (idParam, callback) {
+        catalog.findById(idParam).populate('type', 'name').populate('category', 'name').
+            exec(function (error, doc) {
+                if (error)
+                    callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                else if (doc == null || doc.length == 0)
+                    callback(new Error(), httpStatus.OK, 'Nenhum catálogo encontrado.')
+                else
+                    callback(null, httpStatus.OK, 'Catálogo retornado com sucesso.', doc)
+            })
+    },
+    updateCatalog: function (bodyData, callback) {
+        catalog.findById(bodyData.inpId, function (error, foundDoc) {
+            if (error) {
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            } else {
+                if (foundDoc) {
+                    foundDoc.title = bodyData.inpTitulo
+                    foundDoc.year = bodyData.inpAno
+                    foundDoc.type = bodyData.selTipo
+                    foundDoc.category = bodyData.inpCategoria
+                    foundDoc.sinopse = bodyData.textSinopse
+                    foundDoc.save(function (error) {
+                        if (error)
+                            callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                        else
+                            callback(null, httpStatus.OK, 'Catálogo atualizado com sucesso.')
+                    })
+                } else
+                    callback(new Error(), httpStatus.UNAUTHORIZED, 'Catálogo inválido.')
+            }
+        })
+    },
+    // Deletar Catálogo
+    deleteCatalog: function (bodyData, callback) {
+        catalog.findByIdAndRemove(bodyData.id, function (error) {
+            if (error)
+                callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+            else
+                callback(null, httpStatus.OK, 'Catálogo excluído com sucesso.')
         })
     }
 
