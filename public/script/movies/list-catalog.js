@@ -1,4 +1,8 @@
 jQuery(document).ready(function () {
+    returnData()
+})
+
+function returnData() {
     $.ajax({
         url: "/retornar-catalogo",
         type: "get",
@@ -10,7 +14,7 @@ jQuery(document).ready(function () {
         callbackMsg = JSON.parse(callback.responseText)
         showToastr("error", callbackMsg.message)
     })
-})
+}
 
 function createTable(message, catalog) {
     $("#tbCatalogos tr").remove()
