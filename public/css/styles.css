@@ -25,6 +25,11 @@ div.card {
         width: 350px;
         height: 500px;
     }
+    
+    img#previewImg {
+        width: 500px;
+        width: 500px;
+    }
 }
 
 footer {

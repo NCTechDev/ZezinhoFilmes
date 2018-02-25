@@ -62,6 +62,7 @@ function deleteCatalog(idcatalog) {
                 }).fail(function (callback) {
                     callbackMsg = JSON.parse(callback.responseText)
                     showToastr("error", callbackMsg.message)
+                    returnData()
                 })
             }
         }

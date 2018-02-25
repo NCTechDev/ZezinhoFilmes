@@ -21,6 +21,10 @@ const catalogSchema = new mongoose.Schema({
         ref: 'category',
         required: true
     }],
+    image: {
+        type: String,
+        required: true
+    },
     sinopse: {
         type: String,
         required: true

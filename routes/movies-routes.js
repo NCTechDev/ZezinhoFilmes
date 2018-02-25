@@ -2,7 +2,30 @@
 
 const moviesController = require('../controller/movies-controller'),
     isLoggedIn = require('../authentication/isLoggedIn'),
-    isAuthorized = require('../authentication/isAuthorized')
+    isAuthorized = require('../authentication/isAuthorized'),
+    cuid = require('cuid'),
+    multer = require('multer'),
+    path = require('path'),
+    storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, 'public/img/')
+        },
+        filename: function (req, file, cb) {
+            let ext = path.extname(file.originalname)
+            cb(null, cuid() + ext.toLowerCase())
+        }
+    }),
+    fileFilter = function (req, file, cb) {
+        if (file.mimetype === 'image/png' ||
+            file.mimetype === 'image/jpg' ||
+            file.mimetype === 'image/jpeg')
+            cb(null, true)
+        else return cb('Extensão não permitida.', false)
+    },
+    upload = multer({
+        storage: storage,
+        fileFilter: fileFilter
+    }).single('fileCapa')
 
 module.exports = function (app, path, passport) {
 
@@ -55,7 +78,11 @@ module.exports = function (app, path, passport) {
         res.sendFile(path.join(__dirname + '/../public/view/movies/register-catalog.html'))
     })
     app.post('/cadastrar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
-        moviesController.registerCatalog(req, res)
+        upload(req, res, function (errorRejectFile) {
+            let filenameCapa = null
+            if (req.file) filenameCapa = req.file.filename
+            moviesController.registerCatalog(req, res, filenameCapa, errorRejectFile)
+        })
     })
     // Listar Catálogo
     app.get('/listar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
@@ -72,7 +99,11 @@ module.exports = function (app, path, passport) {
         moviesController.returnACatalog(req, res, req.query.id)
     })
     app.post('/editar-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {
-        moviesController.updateCatalog(req, res)
+        upload(req, res, function (errorRejectFile) {
+            let filenameCapa = null
+            if (req.file) filenameCapa = req.file.filename
+            moviesController.updateCatalog(req, res, filenameCapa, errorRejectFile)
+        })
     })
     // Excluir Catálogo
     app.post('/excluir-catalogo', isLoggedIn, isAuthorized([0]), function (req, res) {

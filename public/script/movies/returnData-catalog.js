@@ -18,6 +18,8 @@ function populateCatalog(message, catalog) {
         $("#inpTitulo").val(catalog.title)
         $("#inpAno").val(catalog.year)
         $("#selTipo").val(catalog.type._id)
+        $('#inpLastImage').val(catalog.image)
+        $('#previewImg').attr('src', '../../img/' + catalog.image)
         $("#textSinopse").val(catalog.sinopse)
         for (let i = 0; i < catalog.category.length; i++)
             $("#" + catalog.category[i]._id).prop('checked', true)

@@ -1,6 +1,8 @@
 'use strict'
 
-const indexService = require('../service/movies-service')
+const indexService = require('../service/movies-service'),
+    fs = require('fs'),
+    httpStatus = require('http-status')
 
 const indexController = {
 
@@ -53,10 +55,22 @@ const indexController = {
         })
     },
     // Cadastrar Catálogo
-    registerCatalog: function (req, res) {
-        indexService.registerCatalog(req.body, function (error, status, message) {
-            res.status(status).json({ message: message })
-        })
+    registerCatalog: function (req, res, filenameCapa, message) {
+        if (message) res.status(httpStatus.UNAUTHORIZED).json({ message: message })
+        else if (filenameCapa === null) res.status(httpStatus.UNAUTHORIZED).json({ message: "Nenhum arquivo foi anexado." })
+        else {
+            indexService.registerCatalog(req.body, filenameCapa, function (error, status, message) {
+                if (status === httpStatus.INTERNAL_SERVER_ERROR) {
+                    fs.unlink('public/img/' + filenameCapa, function (err) {
+                        if (err) {
+                            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                                message: 'Os dados não foram cadastrados no MongoDB, mas ocorreu um error ao excluir a imagem ' + filenameCapa
+                            })
+                        } else res.status(status).json({ message: message })
+                    })
+                } else res.status(status).json({ message: message })
+            })
+        }
     },
     // Listar Catálogo
     listCatalog: function (req, res) {
@@ -70,15 +84,35 @@ const indexController = {
             res.status(status).json({ message: message, catalog: catalog })
         })
     },
-    updateCatalog: function (req, res) {
-        indexService.updateCatalog(req.body, function (error, status, message) {
-            res.status(status).json({ message: message })
-        })
+    updateCatalog: function (req, res, filenameCapa, message) {
+        if (message) res.status(httpStatus.UNAUTHORIZED).json({ message: message })
+        else {
+            indexService.updateCatalog(req.body, filenameCapa, function (error, status, message) {
+                if (status === httpStatus.OK && filenameCapa) {
+                    fs.unlink('public/img/' + req.body.inpLastImage, function (err) {
+                        if (err) {
+                            res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                                message: 'Os dados do MongoDB foram excluídos, mas ocorreu um error ao excluir a imagem ' + req.body.inpLastImage,
+                                lastBDImage: filenameCapa
+                            })
+                        } else res.status(status).json({ message: message, lastBDImage: filenameCapa })
+                    })
+                } else res.status(status).json({ message: message, lastBDImage: req.body.inpLastImage })
+            })
+        }
     },
     // Excluir Catálogo
     deleteCatalog: function (req, res) {
-        indexService.deleteCatalog(req.body, function (error, status, message) {
-            res.status(status).json({ message: message })
+        indexService.deleteCatalog(req.body, function (error, status, message, BDImage) {
+            if (status === httpStatus.OK) {
+                fs.unlink('public/img/' + BDImage, function (err) {
+                    if (err) {
+                        res.status(httpStatus.INTERNAL_SERVER_ERROR).json({
+                            message: 'Os dados do MongoDB foram excluídos, mas ocorreu um error ao excluir a imagem ' + BDImage
+                        })
+                    } else res.status(status).json({ message: message })
+                })
+            } else res.status(status).json({ message: message })
         })
     }
 

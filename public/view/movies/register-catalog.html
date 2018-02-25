@@ -67,7 +67,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <form class="formSend" method="POST" action="">
+                    <form class="formSend" method="POST" action="" enctype="multipart/form-data">
                         <input type="hidden" name="inpOpcao" id="inpOpcao" value="cadastrar">
                         <div class="row">
                             <div class="col-md-6">
@@ -88,6 +88,19 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="containerCategoria" class="m-2 text-center"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <div class="custom-file mb-2">
+                                    <input type="file" class="custom-file-input" name="fileCapa" id="fileCapa">
+                                    <label class="custom-file-label" for="fileCapa">Foto de Capa</label>
+                                    <div class="invalid-feedback">Extensão não permitida. Nenhum arquivo foi anexado.</div>
+                                </div>
+                                <div class="progress mb-2">
+                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <img id="previewImg" class="img-fluid rounded mx-auto d-block">
                             </div>
                         </div>
                         <div class="row">

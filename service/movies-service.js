@@ -126,18 +126,19 @@ const moviesService = {
         })
     },
     // Cadastrar Catálogo
-    registerCatalog: function (bodyData, callback) {
+    registerCatalog: function (bodyData, filenameCapa, callback) {
         let data = new catalog({
             title: bodyData.inpTitulo,
             year: bodyData.inpAno,
             type: bodyData.selTipo,
             category: bodyData.inpCategoria,
+            image: filenameCapa,
             sinopse: bodyData.textSinopse
         })
         data.save(function (error) {
-            if (error)
+            if (error) {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
-            else
+            } else
                 callback(null, httpStatus.CREATED, 'Cadastro realizado com sucesso.')
 
         })
@@ -165,7 +166,7 @@ const moviesService = {
                     callback(null, httpStatus.OK, 'Catálogo retornado com sucesso.', doc)
             })
     },
-    updateCatalog: function (bodyData, callback) {
+    updateCatalog: function (bodyData, filenameCapa, callback) {
         catalog.findById(bodyData.inpId, function (error, foundDoc) {
             if (error) {
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
@@ -175,6 +176,7 @@ const moviesService = {
                     foundDoc.year = bodyData.inpAno
                     foundDoc.type = bodyData.selTipo
                     foundDoc.category = bodyData.inpCategoria
+                    foundDoc.image = filenameCapa === null ? bodyData.inpLastImage : filenameCapa
                     foundDoc.sinopse = bodyData.textSinopse
                     foundDoc.save(function (error) {
                         if (error)
@@ -189,11 +191,12 @@ const moviesService = {
     },
     // Deletar Catálogo
     deleteCatalog: function (bodyData, callback) {
-        catalog.findByIdAndRemove(bodyData.id, function (error) {
+        catalog.findByIdAndRemove(bodyData.id, function (error, foundDoc) {
             if (error)
                 callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
-            else
-                callback(null, httpStatus.OK, 'Catálogo excluído com sucesso.')
+            else {
+                callback(null, httpStatus.OK, 'Catálogo excluído com sucesso.', foundDoc.image)
+            }
         })
     }
 
