@@ -114,6 +114,12 @@ const indexController = {
                 })
             } else res.status(status).json({ message: message })
         })
+    },
+    // Paginação
+    paginate: function (req, res, page) {
+        indexService.paginate(page, function (error, status, message, catalogs, countPages) {
+            res.status(status).json({ message: message, catalog: catalogs, countPages: countPages, currentPage: page })
+        })
     }
 
 }

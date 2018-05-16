@@ -198,6 +198,23 @@ const moviesService = {
                 callback(null, httpStatus.OK, 'Catálogo excluído com sucesso.', foundDoc.image)
             }
         })
+    },
+    // Paginação
+    paginate: function (page, callback) {
+        let perPage = 3, countPages = 0
+        catalog.find().populate('type', 'name').populate('category', 'name')
+            .sort({ '_id': 'desc' }).skip((perPage * page) - perPage).limit(perPage)
+            .exec(function (error, foundDoc) {
+                catalog.count().exec(function (error, foundCount) {
+                    countPages = Math.ceil(foundCount / perPage)
+                    if (error)
+                        callback(error, httpStatus.INTERNAL_SERVER_ERROR, 'Desculpe-nos :( Tente novamente.')
+                    else if (foundDoc == null || foundDoc.length == 0)
+                        callback(new Error(), httpStatus.OK, 'Nenhuma catálogo encontrado.')
+                    else
+                        callback(null, httpStatus.OK, 'Catálogo retornado com sucesso.', foundDoc, countPages)
+                })
+            })
     }
 
 }

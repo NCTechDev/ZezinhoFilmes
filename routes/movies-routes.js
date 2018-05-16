@@ -110,4 +110,10 @@ module.exports = function (app, path, passport) {
         moviesController.deleteCatalog(req, res)
     })
 
+    // Paginação
+    app.get('/catalog/:page?', function (req, res) {
+        let page = req.query.page || 1
+        moviesController.paginate(req, res, page)
+    })
+
 }
