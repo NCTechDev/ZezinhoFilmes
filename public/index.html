@@ -31,7 +31,7 @@
                 <div class="row justify-content-center">
                     <div id="noLogged" class="col-sm-6">
                         <form class="form-login" method="POST" action="">
-                            <input type="text" class="form-control m-1" name="inpUser" id="inpUser" placeholder="Usuário" autocomplete="off">
+                          <input type="text" class="form-control m-1" name="inpUser" id="inpUser" placeholder="Usuário" autocomplete="off">
                             <div class="invalid-feedback">O usuário deve conter no mínimo 8 caracteres.</div>
                             <input type="password" class="form-control m-1" name="inpPassword" id="inpPassword" placeholder="Senha" autocomplete="off">
                             <div class="invalid-feedback">A senha deve conter no mínimo 6 caracteres.</div>
@@ -97,7 +97,10 @@
                         <a class="nav-link text-uppercase" href="#">Séries</a>
                     </li>
                 </ul>
-              </div>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+                Cadastrar usuário
+            </button>
         </nav>
         <!-- End Tipo -->
         <!-- Begin Categorias -->
@@ -145,6 +148,45 @@
             <ul class="pagination justify-content-center"></ul>
         </nav>
         <!-- End Paginate -->
+        <!-- Begin Modal -->
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Cadastrar usuário</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-register" method="POST" action="">
+                            <div class="form-group">
+                                <label for="username">Nome</label>
+                                <input type="text" class="form-control" name="inpRegUsername" id="inpRegUsername" autocomplete="off">
+                                <div class="invalid-feedback">O nome de usuário deve conter no mínimo 10 caracteres.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user">Usuário</label>
+                                <input type="text" class="form-control" name="inpRegUser" id="inpRegUser" autocomplete="off">
+                                <div class="invalid-feedback">O usuário deve conter no mínimo 8 caracteres.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="user">Senha</label>
+                                <input type="password" class="form-control" name="inpRegPassword" id="inpRegPassword" autocomplete="off">
+                                <div class="invalid-feedback">A senha deve conter no mínimo 6 caracteres.</div>
+                            </div>
+                            <button type="submit" class="btn btn-dark btn-block m-1 ladda-button" id="btnRegister" data-style="zoom-in">
+                                <span class="ladda-label">Cadastrar</span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Modal -->
         <!-- Begin Footer -->
         <footer>
             <a href="/" target="blank">
@@ -169,6 +211,7 @@
     <script type="text/javascript" src="js/moment.js"></script>
     <script type="text/javascript" src="js/moment-with-locales.js"></script>
     <script type="text/javascript" src="script/toastr-options.js"></script>
+    <script type="text/javascript" src="script/register.js"></script>
     <script type="text/javascript" src="script/login.js"></script>
     <!-- Catálogo -->
     <script type="text/javascript" src="script/returnData.js"></script>

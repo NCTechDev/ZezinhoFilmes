@@ -7,10 +7,10 @@ const register = require('../models/register-schema'),
 const indexService = {
     // Register
     register: function (bodyData, callback) {
-        let hashedPassword = bcrypt.hashSync(bodyData.inpPassword, 10),
+        let hashedPassword = bcrypt.hashSync(bodyData.inpRegPassword, 10),
             data = new register({
-                username: bodyData.inpUsername,
-                user: bodyData.inpUser,
+                username: bodyData.inpRegUsername,
+                user: bodyData.inpRegUser,
                 password: hashedPassword
             })
 
